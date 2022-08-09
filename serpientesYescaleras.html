@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>¡SERPIENTES Y ESCALERAS!</title>
+        <script src="./js/serpientesYescaleras.js"></script>
+
+    </head>
+    <body>
+        <section id="seleccionar-jugadores">
+
+            <h1 class="titulo">¡SERPIENTES 🐍 Y ESCALERAS 🪜!</h1>
+
+            <h2>Elejir el número de jugadores:</h2>
+
+            <label class="num-jugador" for = "1-jugador">1 jugador</label>
+            <input type="radio" name="jugador" id="1-jugador"/>
+
+            <button id="boton-jugador">Seleccionar</button>
+        </section>
+
+        <section id="section-partido">
+            <h1 class="titulo">¡SERPIENTES 🐍 Y ESCALERAS 🪜!</h1>
+            
+            <h2>Tirar dado:</h2>
+            <p>Seleccionaste <span id="1jugador"></span></p>
+            
+            <p>
+                <button id="1-dado">1 dado 🎲</button>
+                
+            </p>
+            
+            <section id ="tirar-dado">
+                <p>Tiraste un <span id="cara-dado"></span> y has avanzado <span id="casillas-jugador">0</span> casillas</p>
+            </section>
+        </section>
+
+        <section id="mensaje">
+
+        </section>
+
+        <section id="reiniciar">
+            <button id="boton-reiniciar">Reiniciar</button>
+        </section>
+    </body>
+</html>
