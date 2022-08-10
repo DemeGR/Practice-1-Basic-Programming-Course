@@ -126,9 +126,9 @@ function serpientesYescaleras(){
         default:
             if(resultadoCasilla >= 50){
                 if(casillasJugador >= 50){
-                    resultadoSYE = "Tiro un "+ dadoJugador+" ¡GANASTE!"
+                    resultadoSYE = "Tiró un "+ dadoJugador+" ¡GANASTE!"
                 }else{
-                    resultadoSYE = "PC tiro un "+ dadoJugador+" ¡PERDISTE!"
+                    resultadoSYE = "PC tiró un "+ dadoJugador+" ¡PERDISTE!"
                 }
                 partidoTerminado = 1
             }else{

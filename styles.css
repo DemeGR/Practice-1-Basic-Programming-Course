@@ -1,0 +1,29 @@
+.titulo{
+    color: rgb(187, 62, 62);
+    background-color: rgb(178, 255, 35);
+}
+
+#seleccionar-jugadores{
+    background-color: #e4ff82ad;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 717px;
+}
+
+.num-jugador{
+    width: 84px;
+    height: 42px;
+    background:#f9000047;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#boton-jugador{
+    width: 100px;
+    height: 50px;
+    background: #915123d1;
+    padding: 10px;
+    box-sizing: border-box;
+}
