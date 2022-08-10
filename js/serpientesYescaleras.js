@@ -26,6 +26,7 @@ function iniciarJuego(){
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
+//seleccionar numero de jugadores
 function seleccionarNumJugador(){
     let sectionSeleccionarJugadores = document.getElementById('seleccionar-jugadores')
     sectionSeleccionarJugadores.style.display = 'none'              //oculta la parte de selecionar jugadores
@@ -43,38 +44,71 @@ function seleccionarNumJugador(){
         spanNumJugar.innerHTML = '1 jugador'
     }else{
         alert('Selecciona un numero de jugadores')
-        
     }
 }
 
-
+//Tirar dado
 function caraDado(){
-    let sectionMensaje = document.getElementById('mensaje')
-    let parrafo = document.createElement('p')
+    
 
-    dadoJugador = aleatorio(1,6)
+    dadoJugador = aleatorio(1,6)                   //genera numeros aleatorios entre 1 y 6
     casillasJugador = casillasJugador + dadoJugador
 
-    if(casillasJugador < 50){
-        parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y has avanzado ' +casillasJugador +' casillas.'
-    }else{
-        parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y llegaste a la meta.' 
-    }
-    
+    serpientesYescaleras()
+
+    //if(casillasJugador < 50){
+       // parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y has avanzado ' +casillasJugador +' casillas.'
+    //}else{
+   //     parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y llegaste a la meta.' 
+   // }
     
 
-    sectionMensaje.appendChild(parrafo)
-
-    meta()
 }
 
-function meta(){
-    if(casillasJugador >= 50){
-        crearMensajeFinal("¡GANASTE!")
-    }else{
-        
+function serpientesYescaleras(){
+    switch(casillasJugador){
+        case 3://escaleta
+            casillasJugador = 39 
+            crearMensaje(' .Escalera(3-39) y has avanzado a la casilla ')
+        break;
+
+        case 13://serpiente
+            casillasJugador = 10
+            crearMensaje(' .Serpiente(13-10) y has regresaso a la casilla ')
+        break;
+
+        case 16://escalera
+            casillasJugador = 48
+            crearMensaje(' .Escalera(16-48) y has avanzado a la casilla ')
+        break;
+
+        case 35://escalera
+            casillasJugador = 44
+            crearMensaje(' .Escalera(35-44) y has avanzado a la casilla ')
+        break;
+
+        case 38://serpiente
+            casillasJugador = 5
+            crearMensaje(' .Serpiente(38-5) y has regresaso a la casilla ')
+        break;
+
+        default:
+            if(casillasJugador >= 50){
+                crearMensajeFinal("Tiraste un "+ dadoJugador+" ¡GANASTE!")
+            }else{
+                crearMensaje(' y has avanzado(casillas) ') 
+            }
+            
+        break;    
     }
-        
+
+} 
+
+function crearMensaje(resultado){
+    let sectionMensaje = document.getElementById('mensaje')
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = 'Tiraste un '+ dadoJugador + resultado +casillasJugador 
+    sectionMensaje.appendChild(parrafo)
 }
 
 function crearMensajeFinal(resultadoFinal){
@@ -96,6 +130,7 @@ function aleatorio(min, max){
 
 }
 
+//Reiniccar juego
 function reiniciarJuego(){
     location.reload()
 }
