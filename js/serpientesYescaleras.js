@@ -1,6 +1,13 @@
 //Variables globales 
 let casillasJugador = 0
+let casillasPC = 0
 let dadoJugador = 0
+let bandera = 0
+let resultadoJugador
+let resultadoPC = "Nada "
+let resultadoSYE
+let resultadoCasilla = 0
+let partidoTerminado = 0
 
 //Carga todo el contenido del HTML
 window.addEventListener('load', iniciarJuego )
@@ -22,6 +29,8 @@ function iniciarJuego(){
     let boton1Dado = document.getElementById('1-dado')
     boton1Dado.addEventListener('click', caraDado)                      //escucha el boton tirar dado con un click 
 
+    
+
     let botonReiniciar = document.getElementById('boton-reiniciar')     //escucha el boton reiniciar 
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
@@ -35,86 +44,111 @@ function seleccionarNumJugador(){
     sectionTirarDado.style.display = 'none'                         //oculta la parte de tirar dado
 
     let sectionPartido = document.getElementById('section-partido')
-    sectionPartido.style.display = 'block'                          //muestra la seccion de partido 
+    sectionPartido.style.display = 'none'                          //muestra la seccion de partido 
 
     let input1Jugador = document.getElementById('1-jugador')
-    let spanNumJugar = document.getElementById('1jugador')
+    let input2Jugadores = document.getElementById('2-jugadores')
+    let spanNumJugares = document.getElementById('jugadores')
 
     if(input1Jugador.checked){
-        spanNumJugar.innerHTML = '1 jugador'
+        spanNumJugares.innerHTML = '1 jugador.'
+        sectionPartido.style.display = 'block' 
+    }else if(input2Jugadores.checked){
+        spanNumJugares.innerHTML = '2 jugadores.'
+        bandera = 1
+        sectionPartido.style.display = 'block' 
     }else{
         alert('Selecciona un numero de jugadores')
+        sectionSeleccionarJugadores.style.display = 'block'  
+        
     }
 }
 
 //Tirar dado
 function caraDado(){
     
-
     dadoJugador = aleatorio(1,6)                   //genera numeros aleatorios entre 1 y 6
     casillasJugador = casillasJugador + dadoJugador
-
+    resultadoCasilla = casillasJugador
     serpientesYescaleras()
+    casillasJugador = resultadoCasilla
+    resultadoJugador = resultadoSYE
 
-    //if(casillasJugador < 50){
-       // parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y has avanzado ' +casillasJugador +' casillas.'
-    //}else{
-   //     parrafo.innerHTML = 'Tiraste un '+ dadoJugador +' y llegaste a la meta.' 
-   // }
-    
-
+    if(partidoTerminado == 1){
+        crearMensajeFinal()
+    }else{
+        if(bandera == 1){
+            dadoJugador = aleatorio(1,6)                   //genera numeros aleatorios entre 1 y 6
+            casillasPC = casillasPC + dadoJugador
+            resultadoCasilla = casillasPC
+            serpientesYescaleras()
+            casillasPC = resultadoCasilla
+            resultadoPC = resultadoSYE
+            
+            if(partidoTerminado == 1){
+                crearMensajeFinal()
+            }else{
+                crearMensaje()
+            }
+        }else{
+            crearMensaje()
+        }
+    } 
 }
 
 function serpientesYescaleras(){
-    switch(casillasJugador){
+    switch(resultadoCasilla){
         case 3://escaleta
-            casillasJugador = 39 
-            crearMensaje(' .Escalera(3-39) y has avanzado a la casilla ')
+            resultadoCasilla = 39 
+            resultadoSYE = 'Cara '+ dadoJugador +' .Escalera(3-39) y avanza a la casilla '+resultadoCasilla
         break;
 
         case 13://serpiente
-            casillasJugador = 10
-            crearMensaje(' .Serpiente(13-10) y has regresaso a la casilla ')
+            resultadoCasilla = 10
+            resultadoSYE ='Cara '+ dadoJugador +' .Serpiente(13-10) y regresa a la casilla '+resultadoCasilla
         break;
 
         case 16://escalera
-            casillasJugador = 48
-            crearMensaje(' .Escalera(16-48) y has avanzado a la casilla ')
+            resultadoCasilla = 48
+            resultadoSYE ='Cara '+ dadoJugador +' .Escalera(16-48) y avanza a la casilla '+resultadoCasilla
         break;
 
         case 35://escalera
-            casillasJugador = 44
-            crearMensaje(' .Escalera(35-44) y has avanzado a la casilla ')
+            resultadoCasilla = 44
+            resultadoSYE ='Cara '+ dadoJugador +' .Escalera(35-44) y avanza a la casilla '+resultadoCasilla
         break;
 
         case 38://serpiente
-            casillasJugador = 5
-            crearMensaje(' .Serpiente(38-5) y has regresaso a la casilla ')
+            resultadoCasilla = 5
+            resultadoSYE ='Cara '+ dadoJugador +' .Serpiente(38-5) y regresa a la casilla '+resultadoCasilla
         break;
 
         default:
-            if(casillasJugador >= 50){
-                crearMensajeFinal("Tiraste un "+ dadoJugador+" ¡GANASTE!")
+            if(resultadoCasilla >= 50){
+                if(casillasJugador >= 50){
+                    resultadoSYE = "Tiro un "+ dadoJugador+" ¡GANASTE!"
+                }else{
+                    resultadoSYE = "PC tiro un "+ dadoJugador+" ¡PERDISTE!"
+                }
+                partidoTerminado = 1
             }else{
-                crearMensaje(' y has avanzado(casillas) ') 
+                resultadoSYE = 'Cara '+ dadoJugador + '.Avanza a la casilla '+resultadoCasilla
             }
-            
         break;    
     }
-
 } 
 
-function crearMensaje(resultado){
+function crearMensaje(){
     let sectionMensaje = document.getElementById('mensaje')
     let parrafo = document.createElement('p')
-    parrafo.innerHTML = 'Tiraste un '+ dadoJugador + resultado +casillasJugador 
+    parrafo.innerHTML = 'Tu: '+ resultadoJugador+' PC: '+resultadoPC
     sectionMensaje.appendChild(parrafo)
 }
 
-function crearMensajeFinal(resultadoFinal){
+function crearMensajeFinal(){
     let sectionMensaje = document.getElementById('mensaje')
     let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoFinal
+    parrafo.innerHTML = resultadoSYE
 
     sectionMensaje.appendChild(parrafo)
 
